@@ -6,7 +6,7 @@ class GaloisField {
 public:
 	bool value;
 
-	GaloisField(bool value);
+	GaloisField(bool value = false);
 	GaloisField operator*(const GaloisField& m2);
 	GaloisField operator+(const GaloisField& m2);
 };

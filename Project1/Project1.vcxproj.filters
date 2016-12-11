@@ -26,7 +26,7 @@
     <ClCompile Include="GaloisField.cpp">
       <Filter>原始程式檔</Filter>
     </ClCompile>
-    <ClCompile Include="Matrix.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>原始程式檔</Filter>
     </ClCompile>
   </ItemGroup>
