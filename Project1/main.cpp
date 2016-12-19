@@ -9,17 +9,20 @@ void intializeInTap(Matrix<GaloisField> * M, int poly);
 
 int main(void) {
 	int polyA = 0x000000b1; //1011_0001
-	int polyB = 0x00000080; //1000_0000
+	int polyD = 0x00000080; //1000_0000
 	Matrix<GaloisField> Reg = Matrix<GaloisField>(8, 1);
 	Matrix<GaloisField> TransferOutTap = Matrix<GaloisField>(8, 8);
 	Matrix<GaloisField> TransferInTap = Matrix<GaloisField>(8, 8);
+	Matrix<GaloisField> TransferD = Matrix<GaloisField>(8, 8);
 	ofstream fsOutTap("OutTap.txt");
 	ofstream fsInTap("InTap.txt");
+	ofstream fsD("D.txt");
 
 	//intialize
 	intializeOutTap(&TransferOutTap, polyA);
 	Reg.elements[0][0].value = true;
 
+	//run and record
 	for (int i = 0; i < (1<<8); i++) {
 		Reg = TransferOutTap * Reg;
 		for (int j = 0; j < Reg.sizeRow; j++) {
@@ -32,6 +35,7 @@ int main(void) {
 	//intialize
 	intializeInTap(&TransferInTap, polyA);
 
+	//run and record
 	for (int i = 0; i < (1 << 8); i++) {
 		Reg = TransferInTap * Reg;
 		for (int j = 0; j < Reg.sizeRow; j++) {
@@ -40,6 +44,19 @@ int main(void) {
 		fsInTap << endl;
 	}
 	fsInTap.close();
+
+	//intialize
+	intializeInTap(&TransferD, polyD);
+
+	//run and record
+	for (int i = 0; i < (1 << 8); i++) {
+		Reg = TransferD * Reg;
+		for (int j = 0; j < Reg.sizeRow; j++) {
+			fsD << ((Reg.elements)[j][0]).value << ' ';
+		}
+		fsD << endl;
+	}
+	fsD.close();
 
 	return 0;
 }
